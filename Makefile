@@ -12,7 +12,7 @@ LIB_EXT=.so
 
 LV2DIR ?= $(PREFIX)/lib/lv2
 LOADLIBES=-lm
-LV2NAME=ds-tremelo
+LV2NAME=tremelo
 BUNDLE=tremelo.lv2
 BUILDDIR=build/
 targets=

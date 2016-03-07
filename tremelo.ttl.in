@@ -12,11 +12,11 @@
 	foaf:mbox <mailto:dsheeler@pobox.com> ;
 	foaf:homepage <http://dsheeler.org/> .
 
-<http://dsheeler.org/plugins/lv2/ds-tremelo>
+<http://dsheeler.org/plugins/tremelo>
 	a lv2:Plugin , lv2:ModulatorPlugin, doap:Project ;
 	doap:license <http://usefulinc.com/doap/licenses/gpl> ;
   doap:maintainer <http://dsheeler.org/dsheeler#me> ;
-  doap:name "DS Tremelo" ;
+  doap:name "Tremelo" ;
 	@VERSION@
   lv2:optionalFeature lv2:hardRTCapable ;
 	lv2:port [
@@ -87,15 +87,32 @@
 			rdf:value 0.1
 		]
 	] , [
+		a lv2:InputPort ,
+			lv2:ControlPort ;
+		lv2:index 2 ;
+		lv2:symbol "mode" ;
+		lv2:name "Mode" ;
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+    lv2:portProperty lv2:integer, lv2:enumeration ;
+    lv2:scalePoint  [
+			rdfs:label "Sine Wave" ;
+			rdf:value 0
+		] , [
+			rdfs:label "Square Wave" ;
+			rdf:value 1
+		]
+  ] , [
 		a lv2:AudioPort ,
 			lv2:InputPort ;
-		lv2:index 2 ;
+		lv2:index 3 ;
 		lv2:symbol "in" ;
 		lv2:name "In"
 	] , [
 		a lv2:AudioPort ,
 			lv2:OutputPort ;
-		lv2:index 3 ;
+		lv2:index 4 ;
 		lv2:symbol "out" ;
 		lv2:name "Out"
 	] .
