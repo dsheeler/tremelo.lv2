@@ -12,7 +12,7 @@ Install
 Compiling this plugin requires the LV2 SDK, gnu-make and a c-compiler.
 
 ```bash
-  git clone git://github.com/six600110/tremelo.lv2.git
+  git clone git://github.com/dsheeler/tremelo.lv2.git
   cd tremelo.lv2
   make
   sudo make install PREFIX=/usr
