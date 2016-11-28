@@ -24,6 +24,9 @@
 #    define M_PI 3.14159265
 #endif
 
+/** Define a macro for converting a gain in dB to a coefficient. */
+#define DB_CO(g) ((g) > -120.0f ? powf(10.0f, (g) * 0.05f) : 0.0f)
+
 #define TREMELO_URI "http://dsheeler.org/plugins/tremelo"
 
 typedef enum {
@@ -65,7 +68,7 @@ instantiate(const LV2_Descriptor*     descriptor,
             double                    rate,
             const char*               bundle_path,
             const LV2_Feature* const* features) {
-	Tremelo* trem = (Tremelo*)malloc(sizeof(Tremelo));
+	Tremelo* trem = (Tremelo*)calloc(1, sizeof(Tremelo));
   trem->sr = rate;
   trem->wave_len = wave_len_s;
   trem->wave_sine = (float*)malloc(trem->wave_len * sizeof(float));
@@ -108,21 +111,20 @@ activate(LV2_Handle instance)
 {
   Tremelo* trem = (Tremelo*) instance;
   trem->phase = 0;
-  trem->gain_db = 0;
-  trem->gain_coeff = 0;
-  trem->freq_actual = 0;
-  trem->freq_target = 0;
-  trem->freq_last = 0;
+  trem->gain_db = *trem->gain;
+  trem->gain_coeff = DB_CO(*trem->gain);
+  trem->gain_coeff_target = DB_CO(*trem->gain);
+  trem->freq_actual = *trem->freq;
+  trem->freq_target = *trem->freq;
+  trem->freq_last = *trem->freq;
 }
 
-/** Define a macro for converting a gain in dB to a coefficient. */
-#define DB_CO(g) ((g) > -120.0f ? powf(10.0f, (g) * 0.05f) : 0.0f)
 
 static void
 run(LV2_Handle instance, uint32_t n_samples)
 {
 	Tremelo* trem = (Tremelo*)instance;
-  int mode = rint(*trem->mode); 
+  int mode = rint(*trem->mode);
 	const float gain = *trem->gain;
 	const float freq = *trem->freq;
 	const float *input  = trem->input;
