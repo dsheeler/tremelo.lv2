@@ -1,0 +1,3 @@
+option('bundle',
+       type: 'string', value: 'tremelo.lv2',
+       description: 'Name for the LV2 bundle')
